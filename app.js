@@ -1,8 +1,12 @@
 // app.js
 
 // आवश्यक लाइब्रेरी आयात करें
-// LocalAuth को फिर से import करें ताकि fallback काम करे
-const { Client, RemoteAuth, LocalAuth } = require('whatsapp-web.js'); 
+// LocalAuth को सीधे 'wwjs' ऑब्जेक्ट से प्राप्त करें ताकि 'ReferenceError' को रोका जा सके
+const wwjs = require('whatsapp-web.js');
+const Client = wwjs.Client;
+const RemoteAuth = wwjs.RemoteAuth;
+const LocalAuth = wwjs.LocalAuth; // Explicitly assign LocalAuth
+
 const { MongoStore } = require('wwebjs-mongo'); // Session स्टोर करने के लिए
 const mongoose = require('mongoose'); // MongoDB से कनेक्ट करने के लिए
 
@@ -19,7 +23,7 @@ const port = process.env.PORT || 3000; // Render पोर्ट को ऑट�
 // Firebase कॉन्फ़िगरेशन और ऐप ID को Render पर्यावरण चर से प्राप्त करें
 const firebaseConfig = process.env.FIREBASE_CONFIG ? JSON.parse(process.env.FIREBASE_CONFIG) : {};
 const appId = process.env.__APP_ID || 'default-app-id'; // '__APP_ID' Render द्वारा प्रदान किया जाता है
-const initialAuthToken = process.env.__INITIAL_AUTH_token || null; // '__INITIAL_AUTH_TOKEN' Render द्वारा प्रदान किया जाता है
+const initialAuthToken = process.env.__INITIAL_AUTH_TOKEN || null; // '__INITIAL_AUTH_TOKEN' Render द्वारा प्रदान किया जाता है
 
 let db;
 let auth;
@@ -118,7 +122,7 @@ async function initializeWhatsAppClient() {
         console.error("MONGODB_URI पर्यावरण चर सेट नहीं है। सत्र स्थायी नहीं होगा!");
         // Fallback to LocalAuth if MongoDB URI is not provided
         client = new Client({
-            authStrategy: new LocalAuth(),
+            authStrategy: new LocalAuth(), // LocalAuth अब यहां सीधे उपलब्ध होना चाहिए
             puppeteer: {
                 args: [
                     '--no-sandbox',
@@ -134,7 +138,11 @@ async function initializeWhatsAppClient() {
             await mongoose.connect(MONGODB_URI);
             console.log('MongoDB से सफलतापूर्वक कनेक्ट हुआ!');
 
-            const store = new MongoStore({ mongoose: mongoose, collectionName: 'wwebjsSessions' }); // कलेक्शन का नाम स्पष्ट रूप से दें
+            const store = new MongoStore({
+                mongoose: mongoose,
+                collectionName: 'wwebjsSessions', // कलेक्शन का नाम स्पष्ट रूप से दें
+                backupSyncIntervalMs: 60000 // यहां न्यूनतम 1 मिनट (60000ms) पर सेट करें
+            }); 
             client = new Client({
                 authStrategy: new RemoteAuth({
                     clientId: 'whatsapp-bot-session', // यह आपके सत्र के लिए एक ID है
@@ -154,7 +162,7 @@ async function initializeWhatsAppClient() {
             console.error('MongoDB से कनेक्ट होने में त्रुटि:', error);
             // Fallback to LocalAuth if MongoDB connection fails
             client = new Client({
-                authStrategy: new LocalAuth(),
+                authStrategy: new LocalAuth(), // LocalAuth अब यहां सीधे उपलब्ध होना चाहिए
                 puppeteer: {
                     args: [
                         '--no-sandbox',
