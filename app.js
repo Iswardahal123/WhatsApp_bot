@@ -108,7 +108,7 @@ client.on('message', async msg => {
         } else {
             // वास्तविक Google Gemini API कॉल के लिए प्लेसहोल्डर
             // आपको यहां अपनी Google Gemini API कुंजी डालनी होगी
-            const GEMINI_API_KEY = ""; // <--- यहां अपनी Gemini API कुंजी डालें (Google AI Studio से प्राप्त करें)
+            const GEMINI_API_KEY = "AIzaSyA6Zh5GVB24w7bloM99lfgBhANbMeLO1SM"; // <--- यहां अपनी Gemini API कुंजी डालें (Google AI Studio से प्राप्त करें)
 
             if (!GEMINI_API_KEY) {
                 botResponseText = 'मालिक ऑफ़लाइन है और AI कुंजी कॉन्फ़िगर नहीं है। मैं अभी आपके अनुरोध को संसाधित नहीं कर सकता।';
