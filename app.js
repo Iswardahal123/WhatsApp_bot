@@ -28,7 +28,7 @@ const client = new Client({
 });
 
 // मालिक की ऑनलाइन स्थिति को स्टोर करें
-let isOwnerOnline = true;
+let isOwnerOnline = false;
 const STATUS_FILE = 'owner_status.json';
 
 function loadOwnerStatus() {
