@@ -1,0 +1,17 @@
+{
+  "name": "whatsapp-personal-assistant",
+  "version": "1.0.0",
+  "description": "A personal WhatsApp assistant bot using Node.js and Gemini API.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "whatsapp-web.js": "^1.23.0",
+    "qrcode-terminal": "^0.12.0",
+    "fs": "^0.0.1-security"
+  }
+}
