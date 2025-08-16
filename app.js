@@ -188,14 +188,14 @@ async function initializeWhatsAppClient() {
         console.log('WhatsApp क्लाइंट तैयार है! बॉट अब काम कर रहा है।');
         await loadOwnerStatusFromFirestore(); // सुनिश्चित करें कि स्थिति लोड हो गई है
 
-        // कनेक्टेड यूजर को कन्firmation मैसेज भेजें
+        // कनेक्टेड यूजर को कन्firmेशन मैसेज भेजें
         const botOwnId = client.info.wid._serialized; // बॉट का अपना WhatsApp ID
         if (botOwnId) {
             try {
                 await client.sendMessage(botOwnId, 'बॉट सफलतापूर्वक कनेक्ट हो गया है और अब आपके पर्सनल असिस्टेंट के रूप में कार्य करने के लिए तैयार है!');
                 console.log(`कनेक्शन कन्firmेशन मैसेज ${botOwnId} को भेजा गया।`);
             } catch (error) {
-                console.error('कनेक्शन कन्firmेशन मैसेज भेजने में त्रुटि:', error);
+                console.error('कनेक्शन कन्firmation मैसेज भेजने में त्रुटि:', error);
             }
         }
     });
