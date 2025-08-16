@@ -188,7 +188,7 @@ async function initializeWhatsAppClient() {
         console.log('WhatsApp क्लाइंट तैयार है! बॉट अब काम कर रहा है।');
         await loadOwnerStatusFromFirestore(); // सुनिश्चित करें कि स्थिति लोड हो गई है
 
-        // कनेक्टेड यूजर को कन्firmेशन मैसेज भेजें
+        // कनेक्टेड यूजर को कन्firmation मैसेज भेजें
         const botOwnId = client.info.wid._serialized; // बॉट का अपना WhatsApp ID
         if (botOwnId) {
             try {
