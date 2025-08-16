@@ -1,5 +1,4 @@
 // app.js
-
 // आवश्यक लाइब्रेरी आयात करें
 // LocalAuth को सीधे 'wwjs' ऑब्जेक्ट से प्राप्त करें ताकि 'ReferenceError' को रोका जा सके
 const wwjs = require('whatsapp-web.js');
